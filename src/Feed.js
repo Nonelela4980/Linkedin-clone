@@ -9,12 +9,16 @@ import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import Post from './Post';
 import {db} from "./firebase";
 import {firebase} from "./firebase"
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/userSlice";
+import FlipMove from "react-flip-move"
 
 function Feed() {
 
     const[input,setInput]=useState('')
     const [posts,setPosts]=useState([]) /*posts keeps the posts and setPosts is used everytime we want to change a post
                                         -There can be many posts in the feed */
+    const user=useSelector(selectUser)
 
     //listens to changes in posts collection
     useEffect(() =>{
@@ -32,10 +36,10 @@ function Feed() {
     const sendPost=(event)=>{
         event.preventDefault();/**prevents the refresh when the enter key is pressed */
         db.collection("posts").add({
-            name:'Nonelela Cele',
-            description:'Final year computer science student',
+            name:user.displayName,
+            description:user.email,
             message:input,
-            photoUrl:'',
+            photoUrl:user.photoUrl || '',
             timestamp:firebase.firestore.FieldValue.serverTimestamp()
         })
         setInput('') //clears the text field after the user posted a post
@@ -62,6 +66,7 @@ function Feed() {
                 </div>
             </div> 
             {/**Post Section */}
+            <FlipMove>
             {posts.map(({id,data:{name,description,message,photoUrl}})=>
                 <Post
                 key={id}
@@ -75,6 +80,8 @@ function Feed() {
             <Post name='Nonelela Cele' 
             description='Just testing'
             message='Hello react'/>
+            </FlipMove>
+
         </div>
     )
 }

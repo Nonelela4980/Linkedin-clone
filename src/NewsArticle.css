@@ -1,0 +1,25 @@
+.widgets_article{
+    display: flex;
+    padding: 10px;
+    cursor: pointer;
+}
+.widgets_article:hover{
+    background-color: whitesmoke;
+}
+.widgets_articleLeft{
+    color: #0177b7;
+    margin-left: 5px;
+}
+.mu_icon{
+font-size: 15px;
+}
+.widgets_articleRight{
+    flex: 1;
+}
+.widgets_articleRight h4{
+    font-size: 14px;
+}
+.widgets_articleRight p{
+    font-size: 12px;
+    color:gray
+}
